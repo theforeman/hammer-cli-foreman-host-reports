@@ -10,10 +10,9 @@ describe 'host report' do
         host_name: 'host.example.com',
         format: 'ansible',
         reported_at: '01/12/2021',
-        applied: 1,
-        failed: 0,
-        pending: 0,
-        other: 0
+        change: 1,
+        nochange: 2,
+        failure: 1
       }
     end
     let(:host1_report_puppet) do
@@ -22,10 +21,9 @@ describe 'host report' do
         host_name: 'host.example.com',
         format: 'puppet',
         reported_at: '01/12/2021',
-        applied: 1,
-        failed: 0,
-        pending: 0,
-        other: 0
+        change: 1,
+        nochange: 2,
+        failure: 1
       }
     end
     let(:host2_report_puppet) do
@@ -34,10 +32,9 @@ describe 'host report' do
         host_name: 'host2.example.com',
         format: 'puppet',
         reported_at: '01/12/2021',
-        applied: 5,
-        failed: 0,
-        pending: 0,
-        other: 0
+        change: 5,
+        nochange: 2,
+        failure: 1
       }
     end
 
@@ -48,10 +45,10 @@ describe 'host report' do
 
       output = IndexMatcher.new(
         [
-          ['ID', 'HOST', 'REPORTED AT', 'FORMAT', 'APPLIED', 'FAILED', 'PENDING', 'OTHER'],
-          ['1', 'host.example.com', '2021/12/01 00:00:00', 'ansible', '1', '0', '0', '0'],
-          ['2', 'host.example.com', '2021/12/01 00:00:00', 'puppet', '1', '0', '0', '0'],
-          ['3', 'host2.example.com', '2021/12/01 00:00:00', 'puppet', '5', '0', '0', '0']
+          ['ID', 'HOST', 'REPORTED AT', 'FORMAT', 'CHANGE', 'NO CHANGE', 'FAILURE'],
+          ['1', 'host.example.com', '2021/12/01 00:00:00', 'ansible', '1', '2', '1'],
+          ['2', 'host.example.com', '2021/12/01 00:00:00', 'puppet', '1', '2', '1'],
+          ['3', 'host2.example.com', '2021/12/01 00:00:00', 'puppet', '5', '2', '1']
         ]
       )
       expected_result = success_result(output)
@@ -70,9 +67,9 @@ describe 'host report' do
 
       output = IndexMatcher.new(
         [
-          ['ID', 'HOST', 'REPORTED AT', 'FORMAT', 'APPLIED', 'FAILED', 'PENDING', 'OTHER'],
-          ['1', 'host.example.com', '2021/12/01 00:00:00', 'ansible', '1', '0', '0', '0'],
-          ['2', 'host.example.com', '2021/12/01 00:00:00', 'puppet', '1', '0', '0', '0']
+          ['ID', 'HOST', 'REPORTED AT', 'FORMAT', 'CHANGE', 'NO CHANGE', 'FAILURE'],
+          ['1', 'host.example.com', '2021/12/01 00:00:00', 'ansible', '1', '2', '1'],
+          ['2', 'host.example.com', '2021/12/01 00:00:00', 'puppet', '1', '2', '1']
         ]
       )
       expected_result = success_result(output)
@@ -87,7 +84,7 @@ describe 'host report' do
     let(:params) do
       [
         '--host=new.example.com', '--reported-at=01/12/2021', '--body=""',
-        '--format=ansible', '--applied=5'
+        '--format=ansible', '--change=5', '--nochange=2', '--failure=1'
       ]
     end
     let(:new_host_report) do
@@ -98,10 +95,9 @@ describe 'host report' do
         host_name: 'new.example.com',
         reported_at: '01/12/2021',
         body: nil,
-        applied: 5,
-        failed: 0,
-        pending: 0,
-        other: 0
+        change: 5,
+        failure: 1,
+        nochange: 2
       }
     end
 
@@ -119,7 +115,8 @@ describe 'host report' do
       api_expects(:host_reports, :create).with_params(
         'host_report' => {
           'reported_at' => '01/12/2021', 'host' => 'new.example.com',
-          'body' => '""', 'applied' => 5, 'format' => 'ansible'
+          'body' => '""', 'change' => 5, 'format' => 'ansible', 'nochange' => 2,
+          'failure' => 1
         }
       ).returns(new_host_report)
 
@@ -153,10 +150,9 @@ describe 'host report' do
         format: 'puppet',
         reported_at: '01/12/2021',
         body: body.to_json,
-        applied: 5,
-        failed: 0,
-        pending: 0,
-        other: 0,
+        change: 5,
+        failure: 1,
+        nochange: 2,
         keywords: %w[HasChange PuppetHasChange]
       }
     end
@@ -178,10 +174,9 @@ describe 'host report' do
           'Format:             Puppet',
           'Puppet environment: Development',
           'Summary:',
-          '    Applied: 5',
-          '    Failed:  0',
-          '    Pending: 0',
-          '    Other:   0',
+          '    Change:    5',
+          '    No change: 2',
+          '    Failure:   1',
           'Logs:',
           ' 1) Level:    notice',
           '    Resource: resource',

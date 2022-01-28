@@ -11,10 +11,9 @@ module HammerCLIForemanHostReports
           field :format, _('Format')
         end
         summary = proc do
-          field :applied, _('Applied')
-          field :failed, _('Failed')
-          field :pending, _('Pending')
-          field :other, _('Other')
+          field :change, _('Change')
+          field :nochange, _('No change')
+          field :failure, _('Failure')
         end
         if command_class.action == :show
           definition.insert(:after, :host_name) do

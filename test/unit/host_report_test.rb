@@ -23,10 +23,9 @@ describe HammerCLIForemanHostReports::HostReport do
       it_should_print_column 'Host'
       it_should_print_column 'Format'
       it_should_print_column 'Reported at'
-      it_should_print_column 'Applied'
-      it_should_print_column 'Failed'
-      it_should_print_column 'Pending'
-      it_should_print_column 'Other'
+      it_should_print_column 'Change'
+      it_should_print_column 'No change'
+      it_should_print_column 'Failure'
     end
   end
 
@@ -34,7 +33,7 @@ describe HammerCLIForemanHostReports::HostReport do
     let(:cmd) { HammerCLIForemanHostReports::HostReport::InfoCommand.new('', ctx) }
 
     context 'parameters' do
-      it_should_accept 'idi', ['--id=1']
+      it_should_accept 'id', ['--id=1']
     end
   end
 

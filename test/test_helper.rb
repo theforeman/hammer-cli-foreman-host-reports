@@ -1,4 +1,4 @@
-ENV['TEST_API_VERSION'] = ENV['TEST_API_VERSION'] || '3.1'
+ENV['TEST_API_VERSION'] = ENV['TEST_API_VERSION'] || '3.2'
 FOREMAN_HOST_REPORTS_VERSION = Gem::Version.new(ENV['TEST_API_VERSION']).to_s
 
 require 'minitest/autorun'
