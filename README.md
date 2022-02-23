@@ -8,9 +8,9 @@ This Hammer CLI plugin contains set of commands for [foreman_host_reports](
 
 This is the list of which version of Foreman Host Reports is needed to which version of this plugin.
 
-| hammer_cli_foreman_host_reports | 0.0.1+ |
-|---------------------------------|--------|
-|            foreman_host_reports | 0.0.4+ |
+| hammer_cli_foreman_host_reports | 0.0.1+ | 0.1.0+ |
+|---------------------------------|--------|--------|
+|            foreman_host_reports | 0.0.4+ | 1.0.0+ |
 
 ## Installation
 
