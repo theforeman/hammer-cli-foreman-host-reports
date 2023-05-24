@@ -4,7 +4,7 @@ gemspec
 
 group :test do
   gem 'ci_reporter_minitest', '~> 1.0.0', require: false
-  gem 'minitest', '5.14.1'
+  gem 'minitest', '5.18'
   gem 'minitest-spec-context'
   gem 'mocha'
   gem 'rake', '~> 10.1.0'
