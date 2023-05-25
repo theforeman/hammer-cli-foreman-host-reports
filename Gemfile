@@ -7,7 +7,7 @@ group :test do
   gem 'minitest', '5.18'
   gem 'minitest-spec-context'
   gem 'mocha'
-  gem 'rake', '~> 10.1.0'
+  gem 'rake', '~> 13.0'
   gem 'simplecov'
   gem 'thor'
 end
