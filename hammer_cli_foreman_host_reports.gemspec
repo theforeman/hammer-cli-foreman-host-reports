@@ -18,4 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir['{test}/**/*']
 
   spec.add_dependency 'hammer_cli_foreman', '>= 3.0.0', '< 4.0.0'
+
+  spec.required_ruby_version = '>= 2.7', '< 4'
 end
